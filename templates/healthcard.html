@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download Health Card</title>
+    <style>
+        .healthcard {
+            width: 350px;
+            height: 220px;
+            border: 2px solid #000;
+            padding: 15px;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        .photo {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 80px;
+            height: 100px;
+            border: 1px solid #000;
+        }
+        .qr {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 80px;
+            height: 80px;
+        }
+        .details {
+            font-size: 14px;
+        }
+        h2 {
+            margin: 0 0 10px 0;
+        }
+        .download-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="healthcard" id="card">
+        <h2>Digital Health Card</h2>
+        <div class="details">
+            <p><strong>Card ID:</strong> {{ data.card_id }}</p>
+            <p><strong>Name:</strong> {{ data.name }}</p>
+            <p><strong>Gender:</strong> {{ data.gender }}</p>
+            <p><strong>AGE:</strong> {{ data.dob }}</p>
+            <p><strong>Blood Group:</strong> {{ data.blood_group }}</p>
+        </div>
+        <img class="photo" src="{{ url_for('static', filename='uploads/' + data.photo) }}" alt="Photo">
+        <img class="qr" src="{{ qr_path }}" alt="QR Code">
+    </div>
+
+    <button class="download-btn" onclick="downloadCard()">⬇ Download Health Card</button>
+
+    <!-- Load html2canvas library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+    function downloadCard() {
+        html2canvas(document.querySelector("#card")).then(canvas => {
+            let link = document.createElement('a');
+            link.download = '{{ data.name | replace(" ", "_") }}_health_card.png';
+            link.href = canvas.toDataURL();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
+    </script>
+
+</body>
+</html>

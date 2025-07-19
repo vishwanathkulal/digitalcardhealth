@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Digital Health Card</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Digital Health Card Generator</h2>
+    <form method="POST" enctype="multipart/form-data" action="/generate">
+
+        <!-- Section 1: Personal Info -->
+        <h3>👤 Personal Information</h3>
+        <input type="text" name="name" placeholder="Full Name" required><br>
+        <input type="text" name="dob" placeholder="Age" required><br>
+        <input type="text" name="gender" placeholder="Gender" required><br>
+        <input type="text" name="phone" placeholder="Phone Number" required><br>
+        <input type="text" name="address" placeholder="Address (City, State)" required><br>
+        
+        <label><b>Upload Your Photo:</b></label><br>
+        <input type="file" name="photo" accept="image/*"><br><br>
+
+        <!-- Section 2: Medical Details -->
+        <h3>🏥 Medical Details</h3>
+        <input type="text" name="blood_group" placeholder="Blood Group" required><br>
+        <input type="text" name="disabilities" placeholder="Disabilities (optional)"><br>
+        <input type="text" name="allergies" placeholder="Allergies (optional)"><br>
+        <input type="text" name="conditions" placeholder="Chronic Conditions"><br>
+        <input type="text" name="vaccinations" placeholder="Vaccination Status"><br>
+
+        <!-- Section 3: Card Info -->
+        <h3>📇 Card / Record Info</h3>
+        <input type="text" name="card_id" placeholder="Health Card ID" required><br>
+        <input type="text" name="issue_date" placeholder="Date of Issue or Update"><br>
+        <input type="text" name="doctor" placeholder="Doctor / Hospital Name"><br>
+        <input type="text" name="access_code" placeholder="Emergency Access Code"><br>
+
+        <!-- Section 4: Emergency Contact -->
+        <h3>📞 Emergency Contacts</h3>
+        <input type="text" name="emergency_name1" placeholder="Emergency Contact 1 Name" required><br>
+        <input type="text" name="emergency_phone1" placeholder="Phone Number" required><br>
+        <input type="text" name="relation1" placeholder="Relation" required><br>
+        <input type="text" name="emergency_name2" placeholder="Emergency Contact 2 Name"><br>
+        <input type="text" name="emergency_phone2" placeholder="Phone Number"><br>
+        <input type="text" name="relation2" placeholder="Relation"><br>
+
+        <!-- Section 5: Document Upload -->
+        <h3>📎 Upload Medical Documents (Max 3)</h3>
+        <input type="file" name="document1"><br>
+        <input type="file" name="document2"><br>
+        <input type="file" name="document3"><br><br>
+
+        <input type="submit" value="Generate QR & Health Card">
+    </form>
+</body>
+</html>

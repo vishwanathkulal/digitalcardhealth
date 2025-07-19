@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Card</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .card {
+            width: 350px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            font-family: 'Arial', sans-serif;
+        }
+        .card img.photo {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 1px solid #333;
+        }
+        .qr {
+            margin-top: 15px;
+        }
+        .field-label {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Health ID Card</h2>
+    <div class="card">
+        {% if data.photo %}
+            <img src="{{ url_for('static', filename='uploads/' + data.photo) }}" class="photo" alt="User Photo"><br><br>
+        {% endif %}
+
+        <p><span class="field-label">Name:</span> {{ data.name }}</p>
+        <p><span class="field-label">Age:</span> {{ data.age }}</p>
+        <p><span class="field-label">Gender:</span> {{ data.gender }}</p>
+
+        <div class="qr">
+            <img src="{{ qr_path }}" alt="QR Code" width="100">
+        </div>
+    </div>
+</body>
+</html>

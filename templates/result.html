@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Generated</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="card">
+        <h2>🎉 QR Code Generated Successfully</h2>
+        <p>Your digital health card is ready.</p>
+
+        <!-- ✅ Show QR Code -->
+        <img src="{{ url_for('static', filename='qr/' + qr_filename) }}" alt="QR Code" width="250"><br><br>
+
+        <!-- ✅ View QR-linked Health Card -->
+        <a href="{{ url_for('view_card', card_id=card_id) }}" target="_blank">🔍 Scan QR or Click to View Health Card</a><br><br>
+
+        <!-- ✅ Download Health Card (with QR inside) -->
+        <a href="{{ url_for('download_card', card_id=card_id) }}" target="_blank">📥 Download Full Health Card</a><br><br>
+
+        <a href="{{ url_for('index') }}">🔙 Go Back</a>
+    </div>
+</body>
+</html>

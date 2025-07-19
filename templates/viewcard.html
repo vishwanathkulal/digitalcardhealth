@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ data.name }}'s Health Info</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+            background: #f9f9f9;
+        }
+        h1 {
+            color: darkblue;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 5px #ccc;
+        }
+        b {
+            color: darkred;
+        }
+        .qr-section {
+            text-align: center;
+        }
+        .download-btn {
+            background-color: darkblue;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .download-btn:hover {
+            background-color: navy;
+        }
+    </style>
+</head>
+<body>
+    <h1>📄 {{ data.name }}'s Complete Health Details</h1>
+    
+    <div class="section">
+        <h3>👤 Personal Info</h3>
+        <p><b>NAME:</b>{{data.name}}</p>
+        <p><b>DOB:</b> {{ data.dob }}</p>
+        <p><b>Gender:</b> {{ data.gender }}</p>
+        <p><b>Phone:</b> {{ data.phone }}</p>
+        <p><b>Address:</b> {{ data.address }}</p>
+    </div>
+
+    <div class="section">
+        <h3>🏥 Medical Info</h3>
+        <p><b>Blood Group:</b> {{ data.blood_group }}</p>
+        <p><b>Disabilities:</b> {{ data.disabilities }}</p>
+        <p><b>Allergies:</b> {{ data.allergies }}</p>
+        <p><b>Chronic Conditions:</b> {{ data.conditions }}</p>
+        <p><b>Vaccinations:</b> {{ data.vaccinations }}</p>
+        <p><b>Medical Document:</b> 
+            {% if data.medical_doc %}
+                <a href="{{ url_for('static', filename='documents/' + data.medical_doc) }}" target="_blank">View Document</a>
+            {% else %}
+                Not uploaded
+            {% endif %}
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>📇 Card Details</h3>
+        <p><b>Card ID:</b> {{ data.card_id }}</p>
+        <p><b>Issued:</b> {{ data.issue_date }}</p>
+        <p><b>Doctor/Hospital:</b> {{ data.doctor }}</p>
+        <p><b>Access Code:</b> {{ data.access_code }}</p>
+    </div>
+
+    <div class="section">
+        <h3>📞 Emergency Contacts</h3>
+        <p><b>{{ data.emergency_name1 }}:</b> {{ data.emergency_phone1 }} ({{ data.relation1 }})</p>
+        <p><b>{{ data.emergency_name2 }}:</b> {{ data.emergency_phone2 }} ({{ data.relation2 }})</p>
+    </div>
+
+    <div class="section qr-section">
+        <h3>🔲 QR Code</h3>
+        <img class="qr" src="{{ qr_path }}" alt="QR Code">
+    </div>
+
+    <div class="section qr-section">
+        <a href="{{ url_for('download_card', card_id=data.card_id) }}">
+            <button class="download-btn">⬇️ Download Full Health Card</button>
+        </a>
+    </div>
+
+    <!-- ✅ Added: Uploaded Documents -->
+    <div class="section">
+        <h3>📎 Uploaded Documents</h3>
+        <ul>
+          {% for doc in documents %}
+            <li><a href="{{ doc }}" target="_blank">{{ doc.split('/')[-1] }}</a></li>
+          {% else %}
+            <li>No documents uploaded.</li>
+          {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
