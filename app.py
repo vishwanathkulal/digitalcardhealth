@@ -36,7 +36,7 @@ def generate():
         photo_filename = f"{card_id}_{secure_filename(photo.filename)}"
         photo.save(os.path.join(app.config['UPLOAD_FOLDER'], photo_filename))
 
-    # Upload documents
+   
     docs = []
     for i in range(1, 4):
         doc = request.files.get(f'document{i}')
@@ -47,7 +47,7 @@ def generate():
         else:
             docs.append('')
 
-    # Save to PostgreSQL with conflict handling
+
     conn = get_db()
     cur = conn.cursor()
     try:
@@ -80,7 +80,7 @@ def generate():
         cur.close()
         conn.close()
 
-    # Generate QR Code
+   
     view_url = url_for('view_card', card_id=card_id, _external=True)
     qr_filename = f"{card_id}.png"
     qr_path = os.path.join(app.config['QR_FOLDER'], qr_filename)
